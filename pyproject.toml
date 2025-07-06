@@ -1,5 +1,5 @@
 [project]
-name = "project-name"
+name = "python-coding-test"
 version = "0.1.0"
 description = "A modern Python project template optimized for Claude Code with strict guardrails"
 readme = "README.md"
@@ -7,6 +7,12 @@ requires-python = ">=3.12"
 dependencies = [
     "structlog>=25.4.0",
     "rich>=13.7.0",  # for structlog
+    "streamlit>=1.29.0",
+    "pandas>=2.1.0",
+    "numpy>=1.24.0",
+    "plotly>=5.17.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
 ]
 
 [project.optional-dependencies]
@@ -20,6 +26,7 @@ dev = [
     "pre-commit>=3.7.0",
     "bandit>=1.7.0",
     "pip-audit>=2.6.0",
+    "playwright>=1.40.0",  # for streamlit E2E tests
 ]
 
 docs = [
@@ -34,7 +41,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/project_name"]
+packages = ["src/python_coding_test"]
 
 [tool.ruff]
 line-length = 88
@@ -95,6 +102,15 @@ enable_incomplete_feature = ["NewGenericSyntax"]
 module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
+
+[[tool.mypy.overrides]]
+module = [
+    "pandas.*",
+    "plotly.*",
+    "streamlit.*",
+]
+ignore_missing_imports = true
+ignore_errors = true
 
 [tool.bandit]
 exclude_dirs = ["tests", ".venv"]

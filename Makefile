@@ -1,4 +1,4 @@
-.PHONY: help test test-cov test-unit test-property test-integration format lint typecheck security audit check check-all benchmark profile setup pr issue pr-list issue-list label-list clean
+.PHONY: help test test-cov test-unit test-property test-integration format lint typecheck security audit check check-all benchmark profile setup pr issue pr-list issue-list label-list clean streamlit streamlit-dev
 
 # デフォルトターゲット
 help:
@@ -26,6 +26,8 @@ help:
 	@echo "  issue-list   - 開いているイシューの一覧表示"
 	@echo "  label-list   - 利用可能なラベルの一覧表示"
 	@echo "  clean        - キャッシュファイルの削除"
+	@echo "  streamlit    - Streamlitアプリケーションを起動"
+	@echo "  streamlit-dev - Streamlitアプリケーションを開発モードで起動"
 
 # セットアップ
 setup:
@@ -213,3 +215,12 @@ clean:
 	find . -type d -name ".ruff_cache" -exec rm -rf {} +
 	find . -type d -name "htmlcov" -exec rm -rf {} +
 	find . -type f -name ".coverage" -delete
+
+# Streamlit アプリケーション実行
+streamlit:
+	@echo "Starting Streamlit application..."
+	uv run streamlit run src/python_coding_test/streamlit/app.py --server.port 8501
+
+streamlit-dev:
+	@echo "Starting Streamlit application in development mode..."
+	uv run streamlit run src/python_coding_test/streamlit/app.py --server.port 8501 --server.runOnSave true --server.fileWatcherType auto
